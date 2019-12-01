@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Rate <%= data.name %></h1>
+            <% if (typeof msg !== 'undefined') { %>
+                <div class="alert alert-<%= msg.type %>" role="alert"><%= msg.text %></div>
+            <% } %>
+            <form class="form-width" action="/rate" method="post">
+                <input type="hidden" class="form-control" id="_id" name="_id" value="<%= data._id %>">
+                <div class="form-group">
+                    <label for="score">Score (1-10):</label>
+                    <input type="number" class="form-control" id="score" name="score" min="1" max="10" step="1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/display?_id=<%= data._id %>" class="btn btn-link">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

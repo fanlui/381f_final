@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Restaurants</h1>
+            <p>Welcome, <%= user.userid %> <a href="/logout">logout</a></p>
+            <div>
+                <a href="/new" class="btn btn-default">Create new restaurant</a>
+            </div>
+            <br/>
+            <div class="well">
+                <form class="form-inline" action="/search" method="get">
+                    <div class="form-group">
+                        <label class="sr-only" for="searchName">name</label>
+                        <input value="<%= search.name %>" type="text" class="form-control" id="searchName" name="name"
+                               placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="searchBorough">borough</label>
+                        <input value="<%= search.borough %>" type="text" class="form-control" id="searchBorough"
+                               placeholder="Borough" name="borough">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="searchCuisine">cuisine</label>
+                        <input value="<%= search.cuisine %>" type="text" class="form-control" id="searchCuisine"
+                               placeholder="Cuisine" name="cuisine">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                    <a href="/" class="btn btn-default">Reset</a>
+                </form>
+            </div>
+            <br/>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th width="50px">#</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i < list.length; i++) { %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td>
+                            <a href="/display?_id=<%= list[i]._id %>">
+                                <%= list[i].name %>
+                            </a>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

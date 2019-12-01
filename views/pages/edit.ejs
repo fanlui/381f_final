@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit <%= data.name %></h1>
+            <% if (typeof msg !== 'undefined') { %>
+                <div class="alert alert-<%= msg.type %>" role="alert"><%= msg.text %></div>
+            <% } %>
+            <form class="form-width" action="/edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" id="_id" name="_id" value="<%= data._id %>">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input required="required" type="text" class="form-control" id="name" name="name"
+                           value="<%= data.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="borough">Borough</label>
+                    <input type="text" class="form-control" id="borough" name="borough" value="<%= data.borough %>">
+                </div>
+                <div class="form-group">
+                    <label for="cuisine">Cuisine</label>
+                    <input type="text" class="form-control" id="cuisine" name="cuisine" value="<%= data.cuisine %>">
+                </div>
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" class="form-control" id="street" name="street"
+                           value="<%= data.address.street %>">
+                </div>
+                <div class="form-group">
+                    <label for="building">Building</label>
+                    <input type="text" class="form-control" id="building" name="building"
+                           value="<%= data.address.building %>">
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Zipcode</label>
+                    <input type="text" class="form-control" id="zipcode" name="zipcode"
+                           value="<%= data.address.zipcode %>">
+                </div>
+                <div class="form-group">
+                    <label for="lon">GPS Coordinates (lon.)</label>
+                    <input step="any" type="number" class="form-control" id="lon" name="lon"
+                           value="<%= data.address.coord[0] %>">
+                </div>
+                <div class="form-group">
+                    <label for="lat">GPS Coordinates (lat.)</label>
+                    <input step="any" type="number" class="form-control" id="lat" name="lat"
+                           value="<%= data.address.coord[1] %>">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input type="file" class="form-control" id="photo" name="photo">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/display?_id=<%= data._id %>" class="btn btn-link">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1><%= data.name %></h1>
+            <% if (typeof msg !== 'undefined') { %>
+                <div class="alert alert-<%= msg.type %>" role="alert"><%= msg.text %></div>
+            <% } %>
+            <form class="form-width" action="/edit" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <span><%= data.name %></span>
+                </div>
+                <div class="form-group">
+                    <label for="borough">Borough:</label>
+                    <span><%= data.borough %></span>
+                </div>
+                <div class="form-group">
+                    <label for="cuisine">Cuisine:</label>
+                    <span><%= data.cuisine %></span>
+                </div>
+                <div class="form-group">
+                    <label for="street">Street:</label>
+                    <span><%= data.address.street %></span>
+                </div>
+                <div class="form-group">
+                    <label for="building">Building:</label>
+                    <span><%= data.address.building %></span>
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Zipcode:</label>
+                    <span><%= data.address.zipcode %></span>
+                </div>
+                <div class="form-group">
+                    <label for="lon">GPS Coordinates:</label>
+                    <span>[<%= data.address.coord %>]</span>
+                </div>
+                <% if (data.address.coord[0] && data.address.coord[1]) { %>
+                    <div class="form-group">
+                        <label for="photo">Map:</label>
+                        <a href="/map?lon=<%= data.address.coord[0] %>&lat=<%= data.address.coord[1] %>">link</a>
+                    </div>
+                <% } %>
+                <div class="form-group">
+                    <label for="lon">Rates:</label>
+                    <% for(var i = 0; i < data.grades.length; i++) { %>
+                        <p><%= data.grades[i].user %>: <%= data.grades[i].score %></p>
+                    <% } %>
+                </div>
+                <div class="form-group">
+                    <label for="lon">Owner:</label>
+                    <span><%= data.owner %></span>
+                </div>
+                <% if (typeof data.photo !== 'undefined') { %>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="lon">Photo Mimetype:</label>
+                            <span><%= data.photo_mimetype %></span>
+                        </div>
+                        <label for="photo">Photo:</label>
+                        <br/>
+                        <img style="max-width: 100%"
+                             src="data: <%= data.photo_mimetype %>;base64, <%= data.photo.toString('base64') %>">
+                    </div>
+                <% } %>
+                <a href="/rate?_id=<%= data._id %>" class="btn btn-default">Rate</a>
+                <a href="/edit?_id=<%= data._id %>" class="btn btn-default">Edit</a>
+                <a href="/delete?_id=<%= data._id %>" class="btn btn-default">Delete</a>
+                <a href="/" class="btn btn-link">Go back</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
